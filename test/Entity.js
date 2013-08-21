@@ -18,7 +18,7 @@ describe("Entity", function () {
     });
 
     describe("dynamic mixin methods", function () {
-        [ "rel", "href", "title", "entity" ].forEach(function (prop) {
+        [ "rel", "href", "title", "entity", "link", "action", "entity" ].forEach(function (prop) {
             it("should have a " + prop + " method", function () {
                 expect(Entity).to.respondTo(prop);
             });
@@ -42,54 +42,6 @@ describe("Entity", function () {
         it("should create a new object", function () {
             var entity = Entity().properties({ a: "A" });
             expect(entity).to.have.property("_properties").and.eql({ a: "A" });
-        });
-    });
-
-    describe("#link()", function () {
-        var entity = Entity("/");
-
-        beforeEach(function () {
-            if (entity._links.length > 1) {
-                entity._links = entity._links.slice(0, 1);
-            }
-        });
-
-        it("should append to _links", function () {
-            entity.link("child", "/sub-resource");
-            expect(entity._links).to.have.length(2);
-        });
-
-        it("should allow appending a direct Link object", function () {
-            var link = Link("index", "/");
-            entity.link(link);
-            expect(entity._links).to.have.length(2);
-        });
-
-        it("should return this and be chainable", function () {
-            expect(entity.link("index", "/")).to.equal(entity);
-        });
-    });
-
-    describe("#action()", function () {
-        var entity = Entity("/");
-
-        beforeEach(function () {
-            delete entity._actions;
-        });
-
-        it("should create a _actions property", function () {
-            entity.action("create", "/");
-            expect(entity).to.have.property("_actions");
-        });
-
-        it("should allow appending a direct Link object", function () {
-            var action = Action("create", "/", { method: "post" });
-            entity.action(action);
-            expect(entity).to.have.property("_actions");
-        });
-
-        it("should return this and be chainable", function () {
-            expect(entity.action("nothing", "/")).to.equal(entity);
         });
     });
 

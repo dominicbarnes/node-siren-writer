@@ -1,5 +1,6 @@
 var expect = require("chai").expect,
-    mixin = require("..").mixin;
+    siren = require(".."),
+    mixin = siren.mixin;
 
 describe("mixin", function () {
     describe(".prop()", function () {
@@ -27,7 +28,7 @@ describe("mixin", function () {
         });
 
         it("should return a Function", function () {
-            expect(mixin.arrayProp()).to.be.a("function");
+            expect(test.rel).to.be.a("function");
         });
 
         it("should create a prefixed property after first call", function () {
@@ -49,6 +50,37 @@ describe("mixin", function () {
         it("should only append", function () {
             test.rel("a").rel("b", "c").rel([ "d", "e" ]);
             expect(test).to.have.property("_rel").and.eql([ "a", "b", "c", "d", "e" ]);
+        });
+    });
+
+    describe(".arrayPropProto()", function () {
+        var test = { link: mixin.arrayPropProto("links", siren.link) };
+
+        beforeEach(function () {
+            delete test._links;
+        });
+
+        it("should return a Function", function () {
+            expect(test.link).to.be.a("function");
+        });
+
+        it("should create a prefixed property after first call", function () {
+            expect(test).to.not.have.property("_links");
+            test.link();
+            expect(test).to.have.property("_links").and.have.length(1);
+        });
+
+        it("should create an item as an instanceof the proto", function () {
+            test.link("self", "/");
+            expect(test._links[0]).to.be.an.instanceOf(siren.link);
+        });
+
+        it("should pass the supplied arguments to the constructor", function () {
+            test.link("sub", "/sub");
+            expect(test._links[0].toJSON()).to.eql({
+                rel: [ "sub" ],
+                href: "/sub"
+            });
         });
     });
 });
