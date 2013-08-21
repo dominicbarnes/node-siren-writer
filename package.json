@@ -1,0 +1,21 @@
+{
+  "name": "node-siren-writer",
+  "version": "0.0.1",
+  "description": "A Siren Hypermedia Object Generator",
+  "main": "index.js",
+  "keywords": [
+    "siren",
+    "hypermedia",
+    "generator"
+  ],
+  "author": "Dominic Barnes <dominic@dbarnes.info>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "~1.7.2",
+    "mocha": "~1.12.0",
+    "jscoverage": "~0.3.7"
+  },
+  "dependencies": {
+    "extend": "~1.1.3"
+  }
+}
