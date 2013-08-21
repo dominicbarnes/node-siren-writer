@@ -118,24 +118,22 @@ initialization.
 
 ## Object Methods
 
-All object types will have a `toJSON()` method that turns the objet into a
-valid `application/vnd.siren+json` object.
+All object types will have a `toJSON()` method that turns the object into a
+valid `application/vnd.siren+json` object that can be JSON-serialized directly.
 
-The vast majority of the methods available on all object types can be put into
-1 of 3 categories:
+The vast majority of the other methods available can be put into 1 of 3 categories:
 
  1. Property Modifiers
  2. Simple List Builders
  3. Complex List Builders
 
 Property Modifiers are a single value, such as an `href`. Calling the method
-multiple times on the same object simply overwrite the previous value.
+multiple times on the same object simply overwrites the previous value.
 
 Simple List Builders create an `Array` of simple values, such as a `class`
 or `rel`. The first call creates the array, subsequent calls append to that
 same array. For these methods, if an `Array` is passed as the first argument,
-then than `Array` is used and other arguments end up being ignored. (rather
-than flattened)
+that `Array` is used and other arguments end up being ignored.
 
 ````javascript
 siren.entity()
