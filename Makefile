@@ -1,5 +1,5 @@
 NPM ?= npm
-JSCOV ?= jscoverage
+JSCOV ?= ./node_modules/.bin/jscoverage
 
 MOCHA ?= ./node_modules/.bin/mocha
 MOCHA_FLAGS ?= --check-leaks
@@ -9,9 +9,9 @@ REPORTER ?= dot
 node_modules: package.json
 	$(NPM) install
 
-lib-cov: lib
+lib-cov: node_modules
 	rm -rf $@
-	$(JSCOV) $< $@
+	$(JSCOV) lib $@
 
 test: node_modules
 	$(MOCHA) --reporter $(REPORTER) $(MOCHA_FLAGS)

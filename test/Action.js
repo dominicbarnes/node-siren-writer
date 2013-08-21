@@ -17,16 +17,6 @@ describe("Action", function () {
             expect(new Action("a", "b")).to.have.property("_href", "b");
         });
 
-        it("should initialize other options automatically", function () {
-            var action = new Action("a", "b", {
-                method: "post",
-                title: "hello world"
-            });
-
-            expect(action).to.have.property("_method", "POST");
-            expect(action).to.have.property("_title", "hello world");
-        });
-
         it("should not throw an error for unrecognized options", function () {
             expect(function () {
                 new Action("a", "b", {
