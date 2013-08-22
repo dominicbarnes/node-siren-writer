@@ -1,5 +1,5 @@
 {
-  "name": "node-siren-writer",
+  "name": "siren-writer",
   "version": "0.0.1",
   "description": "A Siren Hypermedia Object Generator",
   "main": "index.js",
