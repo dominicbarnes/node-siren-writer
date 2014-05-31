@@ -99,10 +99,10 @@ the [Siren homepage](https://github.com/kevinswiber/siren):
 Creates a new [`Entity`](https://github.com/kevinswiber/siren#entity) object.
 Allows for setting `href` during initialization.
 
-### siren.link(rel, href)
+### siren.link(rel, href, title)
 
 Creates a new [`Link`](https://github.com/kevinswiber/siren#links-1) object.
-Allows for setting `rel` and `href` during initialization.
+Allows for setting `rel`, `href` and `title` during initialization.
 
 ### siren.action(name, href)
 
@@ -170,7 +170,7 @@ siren.entity()
 
 **Complex List Builders**
 
- * `link(rel, href)`: [`links`](https://github.com/kevinswiber/siren#links)
+ * `link(rel, href, title)`: [`links`](https://github.com/kevinswiber/siren#links)
  * `action(name, href)`: [`actions`](https://github.com/kevinswiber/siren#actions)
  * `entity(href)`: [`entities`](https://github.com/kevinswiber/siren#entities-1)
 
@@ -185,6 +185,7 @@ siren.entity()
 **Property Modifiers:**
 
  * `href(href)`: [`href`](https://github.com/kevinswiber/siren#href-1)
+ * `title(title)`: [`title`](https://github.com/kevinswiber/siren#title-1)
 
 **Simple List Builders**
 
