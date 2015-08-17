@@ -118,11 +118,53 @@ the [Siren homepage](https://github.com/kevinswiber/siren):
 ````
 
 
-## Usage
+## API
 
-The internals just got a huge rewrite, docs will be coming soon. In short, the old fluent API
-is now gone in favor of a simpler, single function. (with a large configuration object)
+### writer(base)
 
-The main reason for this decision is because, in practice, the fluent API was just too hard
-to work with. I could _never_ remember exactly how the methods worked, and I wrote the darn
-thing!
+Creates a new `siren` writer with the given `base` as the base URL for things
+like `rel` and `href` throughout an entity.
+
+### siren(options)
+
+The returned function is the entire API. It returns an object that can be
+serialized as a JSON response.
+
+```js
+// express
+res.json(siren(/* options */));
+
+// koa
+this.body = siren(/* options */);
+```
+
+Generally-speaking, this API avoids performing magic. It wants you to be
+explicit, only accepting objects instead of positional arguments. However,
+there are a few ways that this API improves upon generating the response
+entirely from scratch:
+
+ - ensures that single values are converted into arrays where they're required
+   (eg: `class`, `rel`, etc)
+ - flattens nested arrays into a single array, particularly for things like
+   `entities` where you could be merging several different types for a single
+   response
+ - automatically resolves URLs relative to the `base` URL (eg: `href` and any
+   `rel` values that aren't [defined by IANA](https://github.com/dominicbarnes/iana-rels))
+ - throws errors when you are missing things that are explicitly required, such
+   as the `href` or `rel` for a link
+ - throws errors when certain values are outside the list of supported things,
+   such as `method` and field `type`
+
+The keys in `options` match the [spec](https://github.com/kevinswiber/siren),
+so use that as a reference when building your configuration options. Some
+things to be aware of:
+
+ - anything that isn't part of the spec will be discarded
+ - as mentioned before, don't be too concerned with arrays if you're only
+   setting a single value
+ - don't be afraid to nest arrays, they will be flattened
+ - include the trailing `/` in your `base`, especially when using a pathname
+ - avoid using a leading `/` in your relative URLs, as it will
+   behave unexpectedly if your `base` has a pathname as part of it.
+   (ie: `http://example.com/api/`)
+ - this library will `throw` exceptions in the cases mentioned previously

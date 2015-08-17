@@ -1,6 +1,6 @@
 {
   "name": "siren-writer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Siren Hypermedia Object Generator",
   "main": "index.js",
   "keywords": [
