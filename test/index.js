@@ -19,10 +19,8 @@ describe('writer(base)', function () {
     assert.deepEqual(siren(null), {});
   });
 
-  it('should not include extraneous properties', function () {
-    assert.deepEqual(siren({ a: 1 }), {});
-    assert.deepEqual(siren({ rel: 'item' }), {});
-    assert.deepEqual(siren({ href: '/' }), {});
+  it('should include extra properties', function () {
+    assert.deepEqual(siren({ a: 1 }), { a: 1 });
   });
 
   describe('entity.class', function () {
@@ -80,6 +78,12 @@ describe('writer(base)', function () {
       var entity = { rel: [ 'item' ] };
       var result = siren({ entities: [ entity, [ entity ] ] });
       assert.deepEqual(result.entities, [ entity, entity ]);
+    });
+
+    it('should include extra properties', function () {
+      var entity = { rel: [ 'item' ], a: 1 };
+      var result = siren({ entities: entity });
+      assert.deepEqual(result.entities[0], entity);
     });
 
     describe('.rel', function () {
@@ -547,6 +551,12 @@ describe('writer(base)', function () {
       assert.deepEqual(result.links, [ link, link ]);
     });
 
+    it('should include extra properties', function () {
+      var link = { rel: [ 'item' ], href: 'http://localhost/', a: 1 };
+      var result = siren({ links: link });
+      assert.deepEqual(result.links[0], link);
+    });
+
     describe('.rel', function () {
       it('should throw if not defined', function () {
         assert.throws(function () {
@@ -656,6 +666,12 @@ describe('writer(base)', function () {
       var action = { name: 'add', href: 'http://localhost/products' };
       var result = siren({ actions: [ action, [ action ] ] });
       assert.deepEqual(result.actions, [ action, action ]);
+    });
+
+    it('should include extra properties', function () {
+      var action = { name: 'add', href: 'http://localhost/products', a: 1 };
+      var result = siren({ actions: action });
+      assert.deepEqual(result.actions[0], action);
     });
 
     describe('.name', function () {

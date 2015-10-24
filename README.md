@@ -155,11 +155,10 @@ entirely from scratch:
  - throws errors when certain values are outside the list of supported things,
    such as `method` and field `type`
 
-The keys in `options` match the [spec](https://github.com/kevinswiber/siren),
-so use that as a reference when building your configuration options. Some
+The keys in `options` include everything in the [spec](https://github.com/kevinswiber/siren),
+so use that as a reference when building your configuration options. Additional properties will be included, but their behavior with clients cannot be guaranteed. Some other
 things to be aware of:
 
- - anything that isn't part of the spec will be discarded
  - as mentioned before, don't be too concerned with arrays if you're only
    setting a single value
  - don't be afraid to nest arrays, they will be flattened

@@ -14,7 +14,7 @@ module.exports = function (base) {
 function normalizeEntity(base, input) {
   if (!input) return {};
 
-  var ret = {};
+  var ret = clone(input);
 
   var cls = normalizeClass(input.class);
   if (cls) ret.class = cls;
@@ -79,16 +79,13 @@ function normalizeLink(base, input) {
   if (!input.rel) throw new TypeError('links must have a rel');
   if (!input.href) throw new TypeError('links must have an href');
 
-  var ret = {
-    rel: normalizeRel(base, input.rel),
-    href: normalizeHref(base, input.href)
-  };
+  var ret = clone(input);
+
+  ret.rel = normalizeRel(base, input.rel);
+  ret.href = normalizeHref(base, input.href);
 
   var cls = normalizeClass(input.class);
   if (cls) ret.class = cls;
-
-  if (input.title) ret.title = input.title;
-  if (input.type) ret.type = input.type;
 
   return ret;
 }
@@ -124,17 +121,13 @@ function normalizeAction(base, input) {
   if (!input.name) throw new TypeError('actions must have a name');
   if (!input.href) throw new TypeError('actions must have an href');
 
-  var ret = {
-    name: input.name,
-    href: normalizeHref(base, input.href)
-  };
+  var ret = clone(input);
+
+  ret.href = normalizeHref(base, input.href);
+  if (input.method) ret.method = normalizeMethod(input.method);
 
   var cls = normalizeClass(input.class);
   if (cls) ret.class = cls;
-
-  if (input.method) ret.method = normalizeMethod(input.method);
-  if (input.title) ret.title = input.title;
-  if (input.type) ret.type = input.type;
 
   var fields = normalizeFields(input.fields);
   if (fields) ret.fields = fields;
@@ -184,14 +177,12 @@ function normalizeType(input) {
 function normalizeField(input) {
   if (!input.name) throw new TypeError('fields must have a name');
 
-  var ret = { name: input.name };
+  var ret = clone(input);
+
+  if (input.type) ret.type = normalizeType(input.type);
 
   var cls = normalizeClass(input.class);
   if (cls) ret.class = cls;
-
-  if (input.type) ret.type = normalizeType(input.type);
-  if (input.value) ret.value = input.value;
-  if (input.title) ret.title = input.title;
 
   return ret;
 }
