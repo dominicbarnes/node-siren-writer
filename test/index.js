@@ -106,6 +106,12 @@ describe('writer(base)', function () {
         var result = siren({ entities: entity });
         assert.strictEqual(result.entities[0].rel[0], 'http://localhost/rels/test');
       });
+
+      it('should allow rels that include hyphens (#3)', function () {
+        var entity = { rel: 'next-archive' };
+        var result = siren({ entities: entity });
+        assert.strictEqual(result.entities[0].rel[0], 'next-archive');
+      });
     });
 
     describe('.href', function () {
@@ -214,6 +220,13 @@ describe('writer(base)', function () {
           var entity = { rel: 'item', links: link };
           var result = siren({ entities: entity });
           assert.strictEqual(result.entities[0].links[0].rel[0], 'http://localhost/rels/test');
+        });
+
+        it('should allow rels that include hyphens (#3)', function () {
+          var link = { rel: 'next-archive', href: 'http://localhost/' };
+          var entity = { rel: 'item', links: link };
+          var result = siren({ entities: entity });
+          assert.strictEqual(result.entities[0].links[0].rel[0], 'next-archive');
         });
       });
 
@@ -557,6 +570,12 @@ describe('writer(base)', function () {
         var link = { rel: 'rels/test', href: 'http://localhost/' };
         var result = siren({ links: link });
         assert.strictEqual(result.links[0].rel[0], 'http://localhost/rels/test');
+      });
+
+      it('should allow rels that include hyphens (#3)', function () {
+        var link = { rel: 'next-archive', href: 'http://localhost/' };
+        var result = siren({ links: link });
+        assert.strictEqual(result.links[0].rel[0], 'next-archive');
       });
     });
 
