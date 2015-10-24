@@ -1,4 +1,9 @@
 
+0.2.0 / 2015-10-23
+==================
+
+  * fix #4: allowing extra properties to be passed through
+
 0.1.2 / 2015-10-23
 ==================
 
