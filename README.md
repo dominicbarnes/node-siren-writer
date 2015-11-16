@@ -2,11 +2,15 @@
 
 > A generator for [siren](https://github.com/kevinswiber/siren) hypermedia API responses.
 
+[![npm version](https://img.shields.io/npm/v/siren-writer.svg)](https://www.npmjs.com/package/siren-writer)
+[![npm dependencies](https://img.shields.io/david/dominicbarnes/node-siren-writer.svg)](https://david-dm.org/dominicbarnes/node-siren-writer)
+[![npm dev dependencies](https://img.shields.io/david/dev/dominicbarnes/node-siren-writer.svg)](https://david-dm.org/dominicbarnes/node-siren-writer#info=devDependencies)
+[![build status](https://img.shields.io/travis/dominicbarnes/node-siren-writer.svg)](https://travis-ci.org/dominicbarnes/node-siren-writer)
 
 ## Example
 
 ````javascript
-var writer = require("siren-writer");
+var writer = require('siren-writer');
 var siren = writer('http://api.x.io');
 
 var entity = siren({

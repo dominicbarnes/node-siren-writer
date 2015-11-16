@@ -2,13 +2,14 @@
   "name": "siren-writer",
   "version": "0.2.0",
   "description": "A Siren Hypermedia Object Generator",
-  "main": "index.js",
+  "repository": "dominicbarnes/node-siren-writer",
   "keywords": [
     "siren",
     "hypermedia",
     "generator"
   ],
   "author": "Dominic Barnes <dominic@dbarnes.info>",
+  "bugs": "https://github.com/dominicbarnes/node-siren-writer/issues",
   "license": "MIT",
   "dependencies": {
     "array-flatten": "^1.1.1",
@@ -24,6 +25,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "pretest": "npm run lint",
     "test": "mocha"
   }
 }

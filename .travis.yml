@@ -1,0 +1,17 @@
+sudo: false
+language: node_js
+node_js:
+- stable
+- 4
+install: npm update
+cache:
+  directories:
+  - node_modules
+deploy:
+  provider: npm
+  email: dominic@dbarnes.info
+  api_key:
+    secure: kT214AzV7D3GbejWlWjdbfOzboW40CpxCz3UBmTvShNDtAluNJBz12VjKp1M++WFmVxx3ObJYaZjBrPVBR59zlt6Wief7jDdvqUYTY3znpm1FihXPsvL7uZYEVXQU4jfNQtdbdHP/b99096qWTu8Hapok9jN2i8x+6YB9asowYM=
+  on:
+    tags: true
+    repo: dominicbarnes/node-siren-writer
