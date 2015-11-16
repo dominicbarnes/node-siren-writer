@@ -4,7 +4,6 @@ var iana = require('iana-rels');
 var flatten = require('array-flatten');
 var url = require('url');
 
-
 module.exports = function (base) {
   return function (input) {
     return normalizeEntity(base, input);
@@ -52,7 +51,7 @@ function normalizeHref(base, input) {
 
 function normalizeClass(input) {
   if (!input) return;
-  return flatten(arguments);
+  return flatten.from(arguments);
 }
 
 function normalizeProperties(input) {

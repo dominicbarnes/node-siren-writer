@@ -1,6 +1,6 @@
 {
   "extends": [
-    "@dominicbarnes"
+    "@dominicbarnes",
     "@dominicbarnes/node"
   ],
   "rules": {

@@ -1,4 +1,6 @@
 
+'use strict';
+
 var assert = require('assert');
 var path = require('path');
 var writer = require('..');

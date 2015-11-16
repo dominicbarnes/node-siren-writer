@@ -1,3 +1,6 @@
 {
-  "extends": "@dominicbarnes/test"
+  "extends": "@dominicbarnes/test",
+  "rules": {
+    "global-require": 0
+  }
 }
