@@ -20,7 +20,8 @@
     "@dominicbarnes/eslint-config": "*",
     "@dominicbarnes/eslint-config-node": "*",
     "@dominicbarnes/eslint-config-test": "*",
-    "eslint": "^1.1.0",
+    "eslint": "^1.9.0",
+    "eslint-plugin-require-path-exists": "^1.0.18",
     "mocha": "^2.2.5"
   },
   "scripts": {
