@@ -56,6 +56,13 @@ function normalizeClass(input) {
 
 function normalizeProperties(input) {
   if (!input) return;
+
+  if (Array.isArray(input)) {
+    return flatten(input).reduce(function (acc, o) {
+      return Object.assign(acc, o);
+    }, {});
+  }
+
   return clone(input);
 }
 

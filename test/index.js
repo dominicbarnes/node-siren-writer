@@ -55,6 +55,18 @@ describe('writer(base)', function () {
       var result = siren({ properties: props });
       assert.notStrictEqual(result.properties, props);
     });
+
+    it('should merge arrays of input objects', function () {
+      var props = [ { a: 1 }, { b: 2, c: 3 } ];
+      var result = siren({ properties: props });
+      assert.deepEqual(result.properties, { a: 1, b: 2, c: 3 });
+    });
+
+    it('should flatten arrays of input objects', function () {
+      var props = [ { a: 1 }, [ { b: 2 }, { c: 3 } ] ];
+      var result = siren({ properties: props });
+      assert.deepEqual(result.properties, { a: 1, b: 2, c: 3 });
+    });
   });
 
   describe('entity.entities', function () {
