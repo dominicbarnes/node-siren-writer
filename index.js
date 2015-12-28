@@ -1,15 +1,32 @@
 
+'use strict';
+
 var clone = require('clone');
 var iana = require('iana-rels');
 var flatten = require('array-flatten');
 var url = require('url');
 
+
+/**
+ * Initializes a function that uses `base` for all the internal normalize
+ * methods.
+ *
+ * @param {String} base  The base URL for this API.
+ * @return {Function}
+ */
 module.exports = function (base) {
   return function (input) {
     return normalizeEntity(base, input);
   };
 };
 
+/**
+ * Takes the `input` entity object and normalizes it into a valid siren object.
+ *
+ * @param {String} base   The base URL for this API.
+ * @param {Object} input  The entity object to normalize.
+ * @return {Object}
+ */
 function normalizeEntity(base, input) {
   if (!input) return {};
 
@@ -35,6 +52,13 @@ function normalizeEntity(base, input) {
   return ret;
 }
 
+/**
+ * Takes the `input` rel value and normalizes it into a valid array.
+ *
+ * @param {String} base  The base URL for this API.
+ * @param {Mixed} input  The rel value to normalize.
+ * @return {Array}
+ */
 function normalizeRel(base, input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
@@ -44,16 +68,35 @@ function normalizeRel(base, input) {
   });
 }
 
+/**
+ * Takes the `input` href value and normalizes it into an absolute url.
+ *
+ * @param {String} base  The base URL for this API.
+ * @param {Mixed} input  The href value to normalize.
+ * @return {String}
+ */
 function normalizeHref(base, input) {
   if (!input) return;
   return url.resolve(base, input);
 }
 
+/**
+ * Takes the `input` class value and normalizes it into a single array.
+ *
+ * @param {Object} input  The href value to normalize.
+ * @return {String}
+ */
 function normalizeClass(input) {
   if (!input) return;
   return flatten.from(arguments);
 }
 
+/**
+ * Takes the `input` properties value and normalizes it into a single object.
+ *
+ * @param {Mixed} input  The properties value to normalize.
+ * @return {Object}
+ */
 function normalizeProperties(input) {
   if (!input) return;
 
@@ -66,6 +109,13 @@ function normalizeProperties(input) {
   return clone(input);
 }
 
+/**
+ * Takes the `input` entities value and normalizes it into a single array.
+ *
+ * @param {String} base  The base URL for this API.
+ * @param {Mixed} input  The entities value to normalize.
+ * @return {Array}
+ */
 function normalizeEntities(base, input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
@@ -81,6 +131,13 @@ function normalizeEntities(base, input) {
   });
 }
 
+/**
+ * Takes the `input` link value and normalizes it into a single object.
+ *
+ * @param {String} base   The base URL for this API.
+ * @param {Object} input  The link value to normalize.
+ * @return {Object}
+ */
 function normalizeLink(base, input) {
   if (!input.rel) throw new TypeError('links must have a rel');
   if (!input.href) throw new TypeError('links must have an href');
@@ -96,6 +153,13 @@ function normalizeLink(base, input) {
   return ret;
 }
 
+/**
+ * Takes the `input` links value and normalizes it into a single array.
+ *
+ * @param {String} base   The base URL for this API.
+ * @param {Object} input  The links value to normalize.
+ * @return {Array}
+ */
 function normalizeLinks(base, input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
@@ -105,6 +169,12 @@ function normalizeLinks(base, input) {
   });
 }
 
+/**
+ * Takes the `input` method value and normalizes it into a consistent string.
+ *
+ * @param {String} input  The method value to normalize.
+ * @return {String}
+ */
 function normalizeMethod(input) {
   if (!input) return;
 
@@ -123,6 +193,13 @@ function normalizeMethod(input) {
   }
 }
 
+/**
+ * Takes the `input` action value and normalizes it into a single object.
+ *
+ * @param {String} base   The base URL for this API.
+ * @param {Object} input  The action value to normalize.
+ * @return {Object}
+ */
 function normalizeAction(base, input) {
   if (!input.name) throw new TypeError('actions must have a name');
   if (!input.href) throw new TypeError('actions must have an href');
@@ -141,6 +218,13 @@ function normalizeAction(base, input) {
   return ret;
 }
 
+/**
+ * Takes the `input` actions value and normalizes it into a single array.
+ *
+ * @param {String} base  The base URL for this API.
+ * @param {Mixed} input  The links value to normalize.
+ * @return {Array}
+ */
 function normalizeActions(base, input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
@@ -150,6 +234,12 @@ function normalizeActions(base, input) {
   });
 }
 
+/**
+ * Takes the `input` type value and ensures it is a valid value.
+ *
+ * @param {String} input  The type value to normalize.
+ * @return {String}
+ */
 function normalizeType(input) {
   if (!input) return;
 
@@ -180,6 +270,12 @@ function normalizeType(input) {
   }
 }
 
+/**
+ * Takes the `input` link value and normalizes it into a single object.
+ *
+ * @param {Object} input  The field value to normalize.
+ * @return {Object}
+ */
 function normalizeField(input) {
   if (!input.name) throw new TypeError('fields must have a name');
 
@@ -193,6 +289,12 @@ function normalizeField(input) {
   return ret;
 }
 
+/**
+ * Takes the `input` fields value and normalizes it into a single array.
+ *
+ * @param {Mixed} input  The links value to normalize.
+ * @return {Array}
+ */
 function normalizeFields(input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
