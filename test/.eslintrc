@@ -1,6 +1,7 @@
 {
   "extends": "@dominicbarnes/test",
   "rules": {
-    "global-require": 0
+    "global-require": 0,
+    "mocha/no-synchronous-tests": 0
   }
 }
