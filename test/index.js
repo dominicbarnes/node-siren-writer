@@ -104,7 +104,7 @@ describe('writer(base)', function () {
       it('should throw if no rel is defined', function () {
         assert.throws(function () {
           siren({ entities: {} });
-        }, TypeError);
+        });
       });
 
       it('should normalize a single item into an array', function () {
@@ -216,7 +216,7 @@ describe('writer(base)', function () {
         it('should throw if not defined', function () {
           assert.throws(function () {
             siren({ entities: { rel: 'item', links: { href: 'http://localhost/' } } });
-          }, TypeError);
+          });
         });
 
         it('should normalize a single item into an array', function () {
@@ -252,7 +252,7 @@ describe('writer(base)', function () {
         it('should throw if not defined', function () {
           assert.throws(function () {
             siren({ entities: { rel: 'item', links: { rel: 'self' } } });
-          }, TypeError);
+          });
         });
 
         it('should resolve relative to base', function () {
@@ -341,7 +341,7 @@ describe('writer(base)', function () {
         it('should throw if not defined', function () {
           assert.throws(function () {
             siren({ entities: { rel: 'item', actions: { href: '/products' } } });
-          }, TypeError);
+          });
         });
       });
 
@@ -349,7 +349,7 @@ describe('writer(base)', function () {
         it('should throw if not defined', function () {
           assert.throws(function () {
             siren({ entities: { rel: 'item', actions: { name: 'add' } } });
-          }, TypeError);
+          });
         });
 
         it('should resolve relative to base', function () {
@@ -379,7 +379,7 @@ describe('writer(base)', function () {
         it('should throw for unsupported methods', function () {
           assert.throws(function () {
             siren({ entities: { rel: 'item', actions: { name: 'add', href: '/products', method: 'does-not-exist' } } });
-          }, RangeError);
+          });
         });
       });
 
@@ -464,7 +464,7 @@ describe('writer(base)', function () {
           it('should throw when not specified', function () {
             assert.throws(function () {
               siren({ entities: { rel: 'item', actions: { name: 'add', href: 'http://localhost/products', fields: {} } } });
-            }, TypeError);
+            });
           });
         });
 
@@ -504,7 +504,7 @@ describe('writer(base)', function () {
           it('should throw for unsupported methods', function () {
             assert.throws(function () {
               siren({ entities: { rel: 'item', actions: { name: 'add', href: '/products', fields: { name: 'quantity', type: 'does-not-exist' } } } });
-            }, RangeError);
+            });
           });
         });
 
@@ -575,7 +575,7 @@ describe('writer(base)', function () {
       it('should throw if not defined', function () {
         assert.throws(function () {
           siren({ links: { href: 'http://localhost/' } });
-        }, TypeError);
+        });
       });
 
       it('should normalize a single item into an array', function () {
@@ -607,7 +607,7 @@ describe('writer(base)', function () {
       it('should throw if not defined', function () {
         assert.throws(function () {
           siren({ links: { rel: 'self' } });
-        }, TypeError);
+        });
       });
 
       it('should resolve relative to base', function () {
@@ -692,7 +692,7 @@ describe('writer(base)', function () {
       it('should throw if not defined', function () {
         assert.throws(function () {
           siren({ actions: { href: '/products' } });
-        }, TypeError);
+        });
       });
     });
 
@@ -700,7 +700,7 @@ describe('writer(base)', function () {
       it('should throw if not defined', function () {
         assert.throws(function () {
           siren({ actions: { name: 'add' } });
-        }, TypeError);
+        });
       });
 
       it('should resolve relative to base', function () {
@@ -727,7 +727,7 @@ describe('writer(base)', function () {
       it('should throw for unsupported methods', function () {
         assert.throws(function () {
           siren({ actions: { name: 'add', href: '/products', method: 'does-not-exist' } });
-        }, RangeError);
+        });
       });
     });
 
@@ -812,7 +812,7 @@ describe('writer(base)', function () {
         it('should throw when not specified', function () {
           assert.throws(function () {
             siren({ actions: { name: 'add', href: 'http://localhost/products', fields: {} } });
-          }, TypeError);
+          });
         });
       });
 
@@ -848,7 +848,7 @@ describe('writer(base)', function () {
         it('should throw for unsupported methods', function () {
           assert.throws(function () {
             siren({ actions: { name: 'add', href: '/products', fields: { name: 'quantity', type: 'does-not-exist' } } });
-          }, RangeError);
+          });
         });
       });
 

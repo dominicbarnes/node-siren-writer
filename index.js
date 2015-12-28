@@ -1,7 +1,9 @@
 
 'use strict';
 
+var assert = require('assert');
 var clone = require('clone');
+var filter = require('object-filter');
 var iana = require('iana-rels');
 var flatten = require('array-flatten');
 var url = require('url');
@@ -30,26 +32,19 @@ module.exports = function (base) {
 function normalizeEntity(base, input) {
   if (!input) return {};
 
-  var ret = clone(input);
+  var result = Object.assign(clone(input), {
+    class: normalizeClass(input.class),
+    properties: normalizeProperties(input.properties),
+    entities: normalizeEntities(base, input.entities),
+    links: normalizeLinks(base, input.links),
+    actions: normalizeActions(base, input.actions),
+    title: input.title
+  });
 
-  var cls = normalizeClass(input.class);
-  if (cls) ret.class = cls;
-
-  var props = normalizeProperties(input.properties);
-  if (props) ret.properties = props;
-
-  var entities = normalizeEntities(base, input.entities);
-  if (entities) ret.entities = entities;
-
-  var links = normalizeLinks(base, input.links);
-  if (links) ret.links = links;
-
-  var actions = normalizeActions(base, input.actions);
-  if (actions) ret.actions = actions;
-
-  if (input.title) ret.title = input.title;
-
-  return ret;
+  // strip undefined values from the result
+  return filter(result, function (v) {
+    return typeof v !== 'undefined';
+  });
 }
 
 /**
@@ -121,7 +116,7 @@ function normalizeEntities(base, input) {
   if (!Array.isArray(input)) input = [ input ];
 
   return flatten(input).map(function (entity) {
-    if (!entity.rel) throw new TypeError('sub-entities must have a rel');
+    assert(entity.rel, 'sub-entities must have a rel');
 
     var ret = normalizeEntity(base, entity);
     ret.rel = normalizeRel(base, entity.rel);
@@ -139,8 +134,8 @@ function normalizeEntities(base, input) {
  * @return {Object}
  */
 function normalizeLink(base, input) {
-  if (!input.rel) throw new TypeError('links must have a rel');
-  if (!input.href) throw new TypeError('links must have an href');
+  assert(input.rel, 'links must have a rel');
+  assert(input.href, 'links must have an href');
 
   var ret = clone(input);
 
@@ -169,6 +164,9 @@ function normalizeLinks(base, input) {
   });
 }
 
+// lookup table for valid methods
+const methods = new Set([ 'GET', 'PUT', 'POST', 'PATCH', 'DELETE' ]);
+
 /**
  * Takes the `input` method value and normalizes it into a consistent string.
  *
@@ -179,18 +177,11 @@ function normalizeMethod(input) {
   if (!input) return;
 
   var method = input.toUpperCase();
-
-  switch (method) {
-  case 'GET':
-  case 'POST':
-  case 'PUT':
-  case 'PATCH':
-  case 'DELETE':
-    return method;
-
-  default:
+  if (!methods.has(method)) {
     throw new RangeError('http method ' + input + ' not supported');
   }
+
+  return method;
 }
 
 /**
@@ -201,8 +192,8 @@ function normalizeMethod(input) {
  * @return {Object}
  */
 function normalizeAction(base, input) {
-  if (!input.name) throw new TypeError('actions must have a name');
-  if (!input.href) throw new TypeError('actions must have an href');
+  assert(input.name, 'actions must have a name');
+  assert(input.href, 'actions must have an href');
 
   var ret = clone(input);
 
@@ -234,6 +225,13 @@ function normalizeActions(base, input) {
   });
 }
 
+// lookup table for valid field types
+const types = new Set([
+  'hidden', 'text', 'search', 'tel', 'url', 'email', 'password',
+  'datetime', 'date', 'month', 'week', 'time', 'datetime-local',
+  'number', 'range', 'color', 'checkbox', 'radio', 'file'
+]);
+
 /**
  * Takes the `input` type value and ensures it is a valid value.
  *
@@ -243,31 +241,11 @@ function normalizeActions(base, input) {
 function normalizeType(input) {
   if (!input) return;
 
-  switch (input) {
-  case 'hidden':
-  case 'text':
-  case 'search':
-  case 'tel':
-  case 'url':
-  case 'email':
-  case 'password':
-  case 'datetime':
-  case 'date':
-  case 'month':
-  case 'week':
-  case 'time':
-  case 'datetime-local':
-  case 'number':
-  case 'range':
-  case 'color':
-  case 'checkbox':
-  case 'radio':
-  case 'file':
-    return input;
-
-  default:
+  if (!types.has(input)) {
     throw new RangeError('field type ' + input + ' not supported');
   }
+
+  return input;
 }
 
 /**
@@ -277,7 +255,7 @@ function normalizeType(input) {
  * @return {Object}
  */
 function normalizeField(input) {
-  if (!input.name) throw new TypeError('fields must have a name');
+  assert(input.name, 'fields must have a name');
 
   var ret = clone(input);
 

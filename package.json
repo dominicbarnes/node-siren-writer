@@ -14,7 +14,8 @@
   "dependencies": {
     "array-flatten": "^2.0.0",
     "clone": "^1.0.2",
-    "iana-rels": "^0.1.0"
+    "iana-rels": "^0.1.0",
+    "object-filter": "^1.0.2"
   },
   "devDependencies": {
     "@dominicbarnes/eslint-config": "*",
@@ -29,5 +30,8 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "mocha"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
   }
 }
