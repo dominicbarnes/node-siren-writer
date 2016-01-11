@@ -156,8 +156,6 @@ entirely from scratch:
    `rel` values that aren't [defined by IANA](https://github.com/dominicbarnes/iana-rels))
  - throws errors when you are missing things that are explicitly required, such
    as the `href` or `rel` for a link
- - throws errors when certain values are outside the list of supported things,
-   such as `method` and field `type`
 
 The keys in `options` include everything in the [spec](https://github.com/kevinswiber/siren),
 so use that as a reference when building your configuration options. Additional properties will be included, but their behavior with clients cannot be guaranteed. Some other
