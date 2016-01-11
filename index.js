@@ -164,9 +164,6 @@ function normalizeLinks(base, input) {
   });
 }
 
-// lookup table for valid methods
-const methods = new Set([ 'GET', 'PUT', 'POST', 'PATCH', 'DELETE' ]);
-
 /**
  * Takes the `input` method value and normalizes it into a consistent string.
  *
@@ -175,13 +172,7 @@ const methods = new Set([ 'GET', 'PUT', 'POST', 'PATCH', 'DELETE' ]);
  */
 function normalizeMethod(input) {
   if (!input) return;
-
-  var method = input.toUpperCase();
-  if (!methods.has(method)) {
-    throw new RangeError('http method ' + input + ' not supported');
-  }
-
-  return method;
+  return input.toUpperCase();
 }
 
 /**

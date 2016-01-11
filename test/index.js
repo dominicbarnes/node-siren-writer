@@ -375,12 +375,6 @@ describe('writer(base)', function () {
           var result = siren({ entities: entity });
           assert.strictEqual(result.entities[0].actions[0].method, 'POST');
         });
-
-        it('should throw for unsupported methods', function () {
-          assert.throws(function () {
-            siren({ entities: { rel: 'item', actions: { name: 'add', href: '/products', method: 'does-not-exist' } } });
-          });
-        });
       });
 
       describe('.class', function () {
@@ -724,12 +718,6 @@ describe('writer(base)', function () {
         var action = { name: 'add', href: '/products', method: 'post' };
         var result = siren({ actions: action });
         assert.strictEqual(result.actions[0].method, 'POST');
-      });
-
-      it('should throw for unsupported methods', function () {
-        assert.throws(function () {
-          siren({ actions: { name: 'add', href: '/products', method: 'does-not-exist' } });
-        });
       });
     });
 
