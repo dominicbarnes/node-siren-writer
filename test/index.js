@@ -460,6 +460,14 @@ describe('writer(base)', function () {
           assert.deepEqual(result.entities[0].actions[0].fields, [ field, field ]);
         });
 
+        it('should include custom fields', function () {
+          var field = { name: 'color', type: 'select', options: [ 'red', 'blue' ] };
+          var action = { name: 'add', href: 'http://localhost/products', fields: [ field ] };
+          var entity = { rel: 'item', actions: action };
+          var result = siren({ entities: entity });
+          assert.deepEqual(result.entities[0].actions[0].fields[0], field);
+        });
+
         describe('.name', function () {
           it('should throw when not specified', function () {
             assert.throws(function () {
@@ -499,12 +507,6 @@ describe('writer(base)', function () {
             var entity = { rel: 'item', actions: action };
             var result = siren({ entities: entity });
             assert.strictEqual(result.entities[0].actions[0].fields[0].type, type);
-          });
-
-          it('should throw for unsupported methods', function () {
-            assert.throws(function () {
-              siren({ entities: { rel: 'item', actions: { name: 'add', href: '/products', fields: { name: 'quantity', type: 'does-not-exist' } } } });
-            });
           });
         });
 
@@ -808,6 +810,13 @@ describe('writer(base)', function () {
         assert.deepEqual(result.actions[0].fields, [ field, field ]);
       });
 
+      it('should include custom fields', function () {
+        var field = { name: 'color', type: 'select', options: [ 'red', 'blue' ] };
+        var action = { name: 'add', href: 'http://localhost/products', fields: [ field ] };
+        var result = siren({ actions: action });
+        assert.deepEqual(result.actions[0].fields[0], field);
+      });
+
       describe('.name', function () {
         it('should throw when not specified', function () {
           assert.throws(function () {
@@ -843,12 +852,6 @@ describe('writer(base)', function () {
           var action = { name: 'add', href: '/products', fields: { name: 'quantity', type: type } };
           var result = siren({ actions: action });
           assert.strictEqual(result.actions[0].fields[0].type, type);
-        });
-
-        it('should throw for unsupported methods', function () {
-          assert.throws(function () {
-            siren({ actions: { name: 'add', href: '/products', fields: { name: 'quantity', type: 'does-not-exist' } } });
-          });
         });
       });
 

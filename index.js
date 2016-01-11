@@ -225,29 +225,6 @@ function normalizeActions(base, input) {
   });
 }
 
-// lookup table for valid field types
-const types = new Set([
-  'hidden', 'text', 'search', 'tel', 'url', 'email', 'password',
-  'datetime', 'date', 'month', 'week', 'time', 'datetime-local',
-  'number', 'range', 'color', 'checkbox', 'radio', 'file'
-]);
-
-/**
- * Takes the `input` type value and ensures it is a valid value.
- *
- * @param {String} input  The type value to normalize.
- * @return {String}
- */
-function normalizeType(input) {
-  if (!input) return;
-
-  if (!types.has(input)) {
-    throw new RangeError('field type ' + input + ' not supported');
-  }
-
-  return input;
-}
-
 /**
  * Takes the `input` link value and normalizes it into a single object.
  *
@@ -258,8 +235,6 @@ function normalizeField(input) {
   assert(input.name, 'fields must have a name');
 
   var ret = clone(input);
-
-  if (input.type) ret.type = normalizeType(input.type);
 
   var cls = normalizeClass(input.class);
   if (cls) ret.class = cls;
