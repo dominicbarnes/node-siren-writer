@@ -1,4 +1,9 @@
 
+0.4.0 / 2016-01-10
+==================
+
+  * removing strictness from `action.method` and `field.type`, as the spec is more permissible
+
 0.3.0 / 2015-12-28
 ==================
 
