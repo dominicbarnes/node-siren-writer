@@ -82,6 +82,11 @@ describe('writer(base)', function () {
       assert.deepEqual(result.entities, [ entity ]);
     });
 
+    it('should filter out falsy values', function () {
+      var result = siren({ entities: [ false, null ] });
+      assert.deepEqual(result.entities, []);
+    });
+
     it('should not use the input objects', function () {
       var entity = { rel: [ 'item' ] };
       var result = siren({ entities: [ entity ] });
@@ -549,6 +554,11 @@ describe('writer(base)', function () {
       assert.deepEqual(result.links, [ link ]);
     });
 
+    it('should filter out falsy values', function () {
+      var result = siren({ links: [ false, null ] });
+      assert.deepEqual(result.links, []);
+    });
+
     it('should not use the input objects', function () {
       var link = { rel: [ 'item' ], href: 'http://localhost/' };
       var result = siren({ links: [ link ] });
@@ -666,6 +676,11 @@ describe('writer(base)', function () {
       assert.deepEqual(result.actions, [ action ]);
     });
 
+    it('should filter out falsy values', function () {
+      var result = siren({ actions: [ false, null ] });
+      assert.deepEqual(result.actions, []);
+    });
+
     it('should not use the input objects', function () {
       var action = { name: 'add', href: 'http://localhost/products' };
       var result = siren({ actions: action });
@@ -779,6 +794,15 @@ describe('writer(base)', function () {
 
         var result = siren({ actions: actions });
         assert.deepEqual(result.actions[0].fields, [ field ]);
+      });
+
+      it('should filter out falsy values', function () {
+        var actions = [
+          { name: 'add', href: 'http://localhost/products', fields: [ false, null ] }
+        ];
+
+        var result = siren({ actions: actions });
+        assert.deepEqual(result.actions[0].fields, []);
       });
 
       it('should not use the input objects', function () {

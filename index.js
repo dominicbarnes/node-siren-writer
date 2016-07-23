@@ -115,7 +115,7 @@ function normalizeEntities(base, input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
 
-  return flatten(input).map(function (entity) {
+  return flatten(input).filter(Boolean).map(function (entity) {
     assert(entity.rel, 'sub-entities must have a rel');
 
     var ret = normalizeEntity(base, entity);
@@ -159,7 +159,7 @@ function normalizeLinks(base, input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
 
-  return flatten(input).map(function (link) {
+  return flatten(input).filter(Boolean).map(function (link) {
     return normalizeLink(base, link);
   });
 }
@@ -211,7 +211,7 @@ function normalizeActions(base, input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
 
-  return flatten(input).map(function (action) {
+  return flatten(input).filter(Boolean).map(function (action) {
     return normalizeAction(base, action);
   });
 }
@@ -243,5 +243,5 @@ function normalizeFields(input) {
   if (!input) return;
   if (!Array.isArray(input)) input = [ input ];
 
-  return flatten(input).map(normalizeField);
+  return flatten(input).filter(Boolean).map(normalizeField);
 }
