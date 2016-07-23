@@ -1,6 +1,6 @@
 {
   "name": "siren-writer",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A Siren Hypermedia Object Generator",
   "repository": "dominicbarnes/node-siren-writer",
   "keywords": [
